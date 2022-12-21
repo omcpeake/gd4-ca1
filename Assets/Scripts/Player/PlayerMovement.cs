@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
 
     public float rotateSpeedMovement = 0.075f;
     float rotateVelocity;
+
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -34,8 +36,10 @@ public class PlayerMovement : MonoBehaviour
                 float rotationY = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationToLookAt.eulerAngles.y, ref rotateVelocity, rotateSpeedMovement * (Time.deltaTime * 5));
 
                 transform.eulerAngles = new Vector3(0, rotationY, 0);
+                
             }
 
         }
     }
+
 }

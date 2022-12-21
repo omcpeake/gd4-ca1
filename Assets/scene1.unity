@@ -1230,6 +1230,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1317,6 +1318,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1077962897}
   smoothness: 0.5
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ebc7a11d878b641a2238c799cf7b53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 963194227}
+  zoomSpeed: 35
 --- !u!1001 &980592962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1338,7 +1353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400050, guid: aad05534a7ba0dd49b8c54ce188308ec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.42
       objectReference: {fileID: 0}
     - target: {fileID: 400050, guid: aad05534a7ba0dd49b8c54ce188308ec, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1472,6 +1487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd038abbdad8214cb35c37b7983725e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotateSpeedMovement: 0.075
+  anim: {fileID: 0}
 --- !u!195 &1077962900
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1482,7 +1499,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.26
-  m_Speed: 3.55
+  m_Speed: 15
   m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 1200
@@ -1491,7 +1508,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1.6
-  m_BaseOffset: -0.45
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!1001 &1097685395
