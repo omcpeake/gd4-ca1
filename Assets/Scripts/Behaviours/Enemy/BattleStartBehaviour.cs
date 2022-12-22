@@ -8,7 +8,7 @@ public class BattleStartBehaviour : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            Debug.Log("battle time");
+            GameManager.instance.UpdateGameState(GameState.BATTLE);
         }
     }
 }

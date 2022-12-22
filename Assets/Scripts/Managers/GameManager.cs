@@ -9,10 +9,11 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get; private set; }
 
 
-    public GameState state;
+    public GameState gameState;
+    public CamState camState;
     public static event Action<GameState> GameStateChanged;
 
-    // Start is called before the first frame update
+
     void Awake()
     {
         //creating singleton
@@ -28,18 +29,45 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        CamManager.instance.SetMainCam();
         UpdateGameState(GameState.OVERWORLD);
     }
 
     private void Update()
     {
-        
+        if(gameState == GameState.MENU)
+        {
+
+        }
+        else if(gameState == GameState.OVERWORLD)
+        {
+            if(CamManager.instance.getCurrentCam()!=CamState.MAINCAM)
+            {
+                CamManager.instance.SetMainCam();
+            }
+        }
+        else if (gameState == GameState.BATTLE)
+        {
+            if (CamManager.instance.getCurrentCam() != CamState.BATTLECAM)
+            {
+                CamManager.instance.SetBattleCam();
+            }
+        }
+        else if (gameState == GameState.WIN)
+        {
+
+        }
+        else if (gameState == GameState.LOSE)
+        {
+
+        }
+
     }
 
     //https://www.youtube.com/watch?v=4I0vonyqMi8&ab_channel=Tarodev Game state tutorial
     public void UpdateGameState(GameState newState)
     {
-        state = newState;
+        gameState = newState;
 
         switch (newState)
         {
