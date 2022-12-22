@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
+using static UnityEditor.PlayerSettings;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +14,10 @@ public class GameManager : MonoBehaviour
     public GameState gameState;
     public CamState camState;
     public static event Action<GameState> GameStateChanged;
+
+    public GameObject player;
+
+    Vector3 savedPosition;
 
 
     void Awake()
@@ -51,6 +57,7 @@ public class GameManager : MonoBehaviour
             if (CamManager.instance.getCurrentCam() != CamState.BATTLECAM)
             {
                 CamManager.instance.SetBattleCam();
+                BattleManager.instance.StartBattle();
             }
         }
         else if (gameState == GameState.WIN)
@@ -87,6 +94,20 @@ public class GameManager : MonoBehaviour
         }
 
         GameStateChanged?.Invoke(newState);  //checks if anything is subscribed to this before calling
+    }
+
+    public void SaveCurrentPosition()
+    {
+        savedPosition = player.transform.position;
+    }
+    public void ReturnToSavedPosition()
+    {
+        player.GetComponent<NavMeshAgent>().Warp(savedPosition);
+    }
+    public void MovePlayerPosition(Vector3 pos)
+    {
+        player.GetComponent<NavMeshAgent>().Warp(pos);
+        
     }
 
 }

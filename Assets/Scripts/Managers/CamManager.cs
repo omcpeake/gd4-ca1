@@ -9,8 +9,6 @@ public class CamManager : MonoBehaviour
 
     private CamState currentCam;
 
-
-
     public static CamManager instance { get; private set; }
     // Start is called before the first frame update
 
@@ -29,6 +27,7 @@ public class CamManager : MonoBehaviour
 
     public void SetMainCam()
     {
+        
         mainCam.SetActive(true);
         battleCam.SetActive(false);
         currentCam = CamState.MAINCAM;
