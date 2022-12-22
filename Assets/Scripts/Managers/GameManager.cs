@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject player;
 
     Vector3 savedPosition;
+    Quaternion savedRotation;
 
 
     void Awake()
@@ -96,18 +97,20 @@ public class GameManager : MonoBehaviour
         GameStateChanged?.Invoke(newState);  //checks if anything is subscribed to this before calling
     }
 
-    public void SaveCurrentPosition()
+    public void SaveCurrentPositionRotation()
     {
         savedPosition = player.transform.position;
+        savedRotation = player.transform.rotation;
     }
     public void ReturnToSavedPosition()
     {
         player.GetComponent<NavMeshAgent>().Warp(savedPosition);
+        player.transform.rotation = savedRotation;
     }
-    public void MovePlayerPosition(Vector3 pos)
+    public void MovePlayerPosition(Vector3 pos, Quaternion rot)
     {
         player.GetComponent<NavMeshAgent>().Warp(pos);
-        
+        player.transform.rotation = rot;
     }
 
 }

@@ -11,6 +11,18 @@ public class BattleManager : MonoBehaviour
 
     public GameObject enemySlot1;
 
+    private GameObject enemy;
+
+    private Unit playerUnit;
+    private Unit enemyUnit;
+
+    BattleState state;
+
+    Queue turnOrder = new Queue();
+    int turnCount;
+
+    int totalUnitCount;
+
     void Awake()
     {
         //creating singleton
@@ -37,11 +49,47 @@ public class BattleManager : MonoBehaviour
 
     public void StartBattle()
     {
-        GameManager.instance.SaveCurrentPosition();
-        GameManager.instance.MovePlayerPosition(allySlot1.transform.position);
-       // GameManager.instance.player.GetComponent<NavMeshAgent>().enabled= false;
-        
+        state = BattleState.START;
+        //create list of units, will be sorted by speed later
+        List<Unit> unitList = new List<Unit>();
+        //spawn player
+        GameManager.instance.SaveCurrentPositionRotation();
+        GameManager.instance.MovePlayerPosition(allySlot1.transform.position, allySlot1.transform.rotation);
+        playerUnit = GameManager.instance.GetComponent<Unit>();
+        totalUnitCount++;
+        unitList.Add(playerUnit);
 
+        //spawn enemies
+        enemy = SpawnManager.instance.SpawnHuman(enemySlot1.transform.position, enemySlot1.transform.rotation);
+        enemyUnit = enemy.GetComponent<Unit>();
+        totalUnitCount++;
+        unitList.Add(enemyUnit);
+
+        SortBySpeed(unitList);
+
+    }
+
+    private void SortBySpeed(List<Unit> unitList)
+    {
+        int highestSpeed=0;
+        Unit fastestUnit = new Unit();
+        while(unitList.Count > 0)
+        {
+            for (int i = 0; i < unitList.Count; i++)
+            {
+                if (unitList[i].speed >= highestSpeed)
+                {
+                    //TODO - speed ties
+                    highestSpeed = unitList[i].speed;
+                    fastestUnit = unitList[i];
+                }
+            }
+            turnOrder.Enqueue(fastestUnit);
+            unitList.Remove(fastestUnit);
+        }
+
+        
+        
     }
 
     private void EndBattle()
