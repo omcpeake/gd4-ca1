@@ -1,24 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Networking.Types;
 
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager instance { get; private set; }
     // Start is called before the first frame update
     public GameObject allySlot1;
+    public GameObject player;
 
     public GameObject enemySlot1;
 
-    private GameObject enemy;
-
-    private Unit playerUnit;
-    private Unit enemyUnit;
+    private GameObject enemy1;
+    
+    
 
     BattleState state;
 
-    Queue turnOrder = new Queue();
+    Queue<GameObject> turnOrder = new Queue<GameObject>();
     int turnCount;
 
     int totalUnitCount;
@@ -51,45 +53,57 @@ public class BattleManager : MonoBehaviour
     {
         state = BattleState.START;
         //create list of units, will be sorted by speed later
-        List<Unit> unitList = new List<Unit>();
+        List<GameObject> unitList = new List<GameObject>();
         //spawn player
         GameManager.instance.SaveCurrentPositionRotation();
         GameManager.instance.MovePlayerPosition(allySlot1.transform.position, allySlot1.transform.rotation);
-        playerUnit = GameManager.instance.GetComponent<Unit>();
         totalUnitCount++;
-        unitList.Add(playerUnit);
+        unitList.Add(player);
 
         //spawn enemies
-        enemy = SpawnManager.instance.SpawnHuman(enemySlot1.transform.position, enemySlot1.transform.rotation);
-        enemyUnit = enemy.GetComponent<Unit>();
+        enemy1 = SpawnManager.instance.SpawnHuman(enemySlot1.transform.position, enemySlot1.transform.rotation);
         totalUnitCount++;
-        unitList.Add(enemyUnit);
+        unitList.Add(enemy1);
 
         SortBySpeed(unitList);
-
+        GetNextTurn();
     }
 
-    private void SortBySpeed(List<Unit> unitList)
+    private void GetNextTurn()
+    {
+        if(turnOrder.Peek().GetComponent<Stats>().IsFriendly()==true)
+        {
+            state = BattleState.PLAYERTURN;
+        }
+        else
+        {
+            state = BattleState.ENEMYTURN;
+        }
+    }
+
+    private void SortBySpeed(List<GameObject> unitList)
     {
         int highestSpeed=0;
-        Unit fastestUnit = new Unit();
+        int index = 0;
+        GameObject fastestUnit = new ();
+        
         while(unitList.Count > 0)
         {
             for (int i = 0; i < unitList.Count; i++)
             {
-                if (unitList[i].speed >= highestSpeed)
+                if (unitList[i].GetComponent<Stats>().GetSpeed() >= highestSpeed)
                 {
                     //TODO - speed ties
-                    highestSpeed = unitList[i].speed;
-                    fastestUnit = unitList[i];
+                    highestSpeed = unitList[i].GetComponent<Stats>().GetSpeed();
+                    fastestUnit=unitList[i];
+                    index = i;
+                    
                 }
             }
+            unitList.Remove(unitList[index]);
             turnOrder.Enqueue(fastestUnit);
-            unitList.Remove(fastestUnit);
+            
         }
-
-        
-        
     }
 
     private void EndBattle()

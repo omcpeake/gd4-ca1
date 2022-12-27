@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float rotateSpeedMovement = 0.075f;
     float rotateVelocity;
 
-   
+    ScriptableObject playerStats;
   
     // Start is called before the first frame update
     void Start()

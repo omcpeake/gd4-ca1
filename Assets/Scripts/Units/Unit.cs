@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour
+
+[CreateAssetMenu(fileName = "Unit", menuName = "Assets/Unit")]
+
+public class Unit : ScriptableObject
 {
     public string unitName;
     public int unitLevel;
@@ -10,9 +13,11 @@ public class Unit : MonoBehaviour
     public bool friendly;
 
     public int maxHP;
-    public int currentHP;
 
     public int attack;
     public int defense;
     public int speed;
+
+
+
 }
