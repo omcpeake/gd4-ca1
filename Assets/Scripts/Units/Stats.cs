@@ -25,18 +25,28 @@ public class Stats : MonoBehaviour
         return unitStats.attack;
     }
     //damage formula = attack*(100/(100+defense))
-    public void Defend(int attackVal)
+    public bool Defend(int attackVal)
     {
-        currentHP -= attackVal*(100/(100+unitStats.defense));
+        //currentHP -= attackVal*(100/(100+unitStats.defense));
+        currentHP -= attackVal;
+        Debug.Log(currentHP);
         if(currentHP <= 0)
         {
-            isDead = true; 
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
     public bool GetIsDead()
     {
         return isDead;
+    }
+    public void Die()
+    {
+        isDead = true;
     }
 
     public bool IsFriendly()

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Networking.Types;
@@ -8,13 +10,22 @@ using UnityEngine.Networking.Types;
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager instance { get; private set; }
-    // Start is called before the first frame update
-    public GameObject allySlot1;
-    public GameObject player;
+    [SerializeField]
+    private GameObject allySlot1;
+    [SerializeField]
+    private GameObject player;
 
-    public GameObject enemySlot1;
-
+    [SerializeField]
+    private GameObject enemySlot1;
     private GameObject enemy1;
+
+    [SerializeField]
+    private GameObject battleUI;
+
+
+    private GameObject selectedUnit;
+
+    
     
     
 
@@ -23,7 +34,8 @@ public class BattleManager : MonoBehaviour
     Queue<GameObject> turnOrder = new Queue<GameObject>();
     int turnCount;
 
-    int totalUnitCount;
+    int allyUnitCount;
+    int enemyUnitCount;
 
     void Awake()
     {
@@ -36,18 +48,10 @@ public class BattleManager : MonoBehaviour
         {
             instance = this;
         }
+
+        battleUI.SetActive(false);
     }
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void StartBattle()
     {
@@ -57,13 +61,15 @@ public class BattleManager : MonoBehaviour
         //spawn player
         GameManager.instance.SaveCurrentPositionRotation();
         GameManager.instance.MovePlayerPosition(allySlot1.transform.position, allySlot1.transform.rotation);
-        totalUnitCount++;
+        allyUnitCount++;
         unitList.Add(player);
 
         //spawn enemies
         enemy1 = SpawnManager.instance.SpawnHuman(enemySlot1.transform.position, enemySlot1.transform.rotation);
-        totalUnitCount++;
+
         unitList.Add(enemy1);
+        enemyUnitCount++;
+        selectedUnit = enemy1;
 
         SortBySpeed(unitList);
         GetNextTurn();
@@ -74,10 +80,101 @@ public class BattleManager : MonoBehaviour
         if(turnOrder.Peek().GetComponent<Stats>().IsFriendly()==true)
         {
             state = BattleState.PLAYERTURN;
+            battleUI.SetActive(true);
         }
         else
         {
             state = BattleState.ENEMYTURN;
+            battleUI.SetActive(false);
+            StartCoroutine(EnemyTurn());
+        }
+    }
+
+  
+    public void OnAttackButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+
+        StartCoroutine(PlayerAttack());
+    }
+
+    IEnumerator PlayerAttack()
+    {
+        //damage
+        bool isDead = selectedUnit.GetComponent<Stats>().Defend(turnOrder.Peek().GetComponent<Stats>().Attack());
+        yield return new WaitForSeconds(2f);
+
+        //check if dead
+        if(isDead==true)
+        {
+            selectedUnit.GetComponent<Stats>().Die();
+            enemyUnitCount--;
+        }
+
+        //change state
+        if(enemyUnitCount==0)
+        {
+            state = BattleState.WON;
+            EndBattle();
+        }
+        else
+        {
+            //remove from turn queue and add back onto the back
+            GameObject temp = turnOrder.Peek();
+            turnOrder.Dequeue();
+            turnOrder.Enqueue(temp);
+            GetNextTurn();
+        }
+
+    }
+
+    IEnumerator EnemyTurn()
+    {
+        //TODO - Enemy can choose targets
+        yield return new WaitForSeconds(1f);
+        //damage
+        bool isDead = player.GetComponent<Stats>().Defend(turnOrder.Peek().GetComponent<Stats>().Attack());
+        yield return new WaitForSeconds(2f);
+
+        //check if dead
+        if (isDead == true)
+        {
+            player.GetComponent<Stats>().Die();
+            allyUnitCount--;
+        }
+
+        //change state
+        if (allyUnitCount == 0)
+        {
+            state = BattleState.LOST;
+            EndBattle();
+        }
+        else
+        {
+            //remove from turn queue and add back onto the back
+            GameObject temp = turnOrder.Peek();
+            turnOrder.Dequeue();
+            turnOrder.Enqueue(temp);
+            GetNextTurn();
+        }
+
+    }
+
+    public void SelectUnit(SelectedUnit selected)
+    {
+        switch (selected)
+        {
+            case SelectedUnit.ALLY1:
+                selectedUnit = player;
+                break;
+            case SelectedUnit.ENEMY1:
+                selectedUnit = enemy1;
+                break;
+
+
+            default:
+                throw new ArgumentOutOfRangeException(nameof(selected), selected, null);
         }
     }
 
@@ -106,9 +203,20 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+
     private void EndBattle()
     {
-        GameManager.instance.UpdateGameState(GameState.OVERWORLD);
-        GameManager.instance.ReturnToSavedPosition();
+        turnOrder.Clear();
+        battleUI.SetActive(false);
+        if(state==BattleState.WON)
+        {
+            GameManager.instance.UpdateGameState(GameState.OVERWORLD);
+            GameManager.instance.ReturnToSavedPosition();
+        }
+        else if(state==BattleState.LOST)
+        {
+            GameManager.instance.UpdateGameState(GameState.LOSE);
+        }
+        
     }
 }
