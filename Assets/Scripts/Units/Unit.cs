@@ -11,6 +11,7 @@ public class Unit : ScriptableObject
     public int unitLevel;
 
     public bool friendly;
+    public bool boss;
 
     public int maxHP;
     public int currentHP;
