@@ -15,7 +15,8 @@ MonoBehaviour:
   unitName: TestEnemy
   unitLevel: 1
   friendly: 0
-  maxHP: 3
-  attack: 3
-  defense: 3
-  speed: 3
+  maxHP: 5
+  currentHP: -13
+  attack: 6
+  defense: 6
+  speed: 6

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ using UnityEngine.UI;
 public class ButtonPressBehaviour : MonoBehaviour, IPointerClickHandler
 {
     private Button button;
+    public TextMeshProUGUI text;
 
     private void Start()
     {
@@ -19,12 +21,13 @@ public class ButtonPressBehaviour : MonoBehaviour, IPointerClickHandler
         {
             if (button.name == "Ally1")
             {
-                BattleManager.instance.SelectUnit(SelectedUnit.ALLY1);
+                BattleManager.instance.SelectUnit(SelectedUnit.ALLY1);                
             }
             if (button.name=="Enemy1")
             {
                 BattleManager.instance.SelectUnit(SelectedUnit.ENEMY1);
             }
         }
+        text.SetText(BattleManager.instance.SelectedUnitHP().ToString());
     }
 }

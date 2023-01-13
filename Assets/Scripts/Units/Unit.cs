@@ -13,6 +13,7 @@ public class Unit : ScriptableObject
     public bool friendly;
 
     public int maxHP;
+    public int currentHP;
 
     public int attack;
     public int defense;

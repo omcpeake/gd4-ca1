@@ -178,6 +178,11 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    public int SelectedUnitHP()
+    {
+        return selectedUnit.GetComponent<Stats>().GetCurrentHP();
+    }
+
     private void SortBySpeed(List<GameObject> unitList)
     {
         int highestSpeed=0;

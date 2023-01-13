@@ -5,15 +5,17 @@ using UnityEngine;
 public class Stats : MonoBehaviour
 {
     public Unit unitStats;
-    private int currentHP;
     private bool isDead;
 
     private void Awake()
     {
-        currentHP = unitStats.maxHP;
         isDead = false;
     }
 
+    public int GetCurrentHP()
+    {
+        return unitStats.currentHP;
+    }
 
     public int GetSpeed()
     {
@@ -28,9 +30,9 @@ public class Stats : MonoBehaviour
     public bool Defend(int attackVal)
     {
         //currentHP -= attackVal*(100/(100+unitStats.defense));
-        currentHP -= attackVal;
-        Debug.Log(currentHP);
-        if(currentHP <= 0)
+        unitStats.currentHP -= attackVal;
+        Debug.Log(unitStats.currentHP);
+        if(unitStats.currentHP <= 0)
         {
             return true;
         }
@@ -39,6 +41,9 @@ public class Stats : MonoBehaviour
             return false;
         }
     }
+
+
+
 
     public bool GetIsDead()
     {
