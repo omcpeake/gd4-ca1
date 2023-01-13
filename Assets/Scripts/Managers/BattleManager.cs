@@ -72,6 +72,8 @@ public class BattleManager : MonoBehaviour
         selectedUnit = enemy1;
 
         SortBySpeed(unitList);
+
+        SoundManager.instance.SwitchMusic();
         GetNextTurn();
     }
 

@@ -9,7 +9,11 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource MusicSource;
     public AudioSource EffectsSource;
-    public AudioClip MusicClip;
+    [Space]
+    public AudioClip OverworldMusic;
+    public AudioClip CombatMusic;
+    [Space]
+    public AudioClip test;
 
     void Awake()
     {
@@ -22,9 +26,24 @@ public class SoundManager : MonoBehaviour
         {
             instance = this;
         }
-        MusicSource.clip = MusicClip;
+        MusicSource.clip = OverworldMusic;
         MusicSource.Play();
+    }
 
+
+    public void SwitchMusic()
+    {
+        if (MusicSource.clip == OverworldMusic)
+        {
+            MusicSource.clip = CombatMusic;
+            MusicSource.Play();
+        }
+        else if(MusicSource.clip == CombatMusic)
+        {
+            MusicSource.clip = OverworldMusic;
+            MusicSource.Play();
+        }
+            
     }
 
 
