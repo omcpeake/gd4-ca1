@@ -297,6 +297,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4168634819871070}
   - component: {fileID: 95247164175502188}
+  - component: {fileID: 4352871479119459205}
+  - component: {fileID: 5277380388411211272}
+  - component: {fileID: 1368127562928962488}
   m_Layer: 0
   m_Name: HP_Golem
   m_TagString: Untagged
@@ -341,6 +344,44 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &4352871479119459205
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438169871030806}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.2933083, y: 4.792517, z: 4.027562}
+  m_Center: {x: -0.37532672, y: 1.8962591, z: 0.29871053}
+--- !u!114 &5277380388411211272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438169871030806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97db9c96d987929449aa7ed68c959bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1368127562928962488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438169871030806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4177793a6f6c730489aca65cc9a2b4d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitStats: {fileID: 0}
 --- !u!1 &1457912190622302
 GameObject:
   m_ObjectHideFlags: 0

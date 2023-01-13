@@ -52,6 +52,7 @@ public class Stats : MonoBehaviour
     public void Die()
     {
         isDead = true;
+        Destroy(gameObject);
     }
 
     public bool IsFriendly()

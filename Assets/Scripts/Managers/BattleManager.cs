@@ -56,7 +56,7 @@ public class BattleManager : MonoBehaviour
     public void StartBattle()
     {
         state = BattleState.START;
-        //create list of units, will be sorted by speed later
+        //create list of units, will be sorted by speed in placed into a queue later
         List<GameObject> unitList = new List<GameObject>();
         //spawn player
         GameManager.instance.SaveCurrentPositionRotation();
@@ -77,6 +77,7 @@ public class BattleManager : MonoBehaviour
 
     private void GetNextTurn()
     {
+        turnCount++;
         if(turnOrder.Peek().GetComponent<Stats>().IsFriendly()==true)
         {
             state = BattleState.PLAYERTURN;
@@ -156,6 +157,13 @@ public class BattleManager : MonoBehaviour
             GameObject temp = turnOrder.Peek();
             turnOrder.Dequeue();
             turnOrder.Enqueue(temp);
+
+            //if the next turn is a unit that has already died it will be null and needs to be removed
+            if (turnOrder.Peek()==null)
+            {
+                turnOrder.Dequeue();
+            }
+
             GetNextTurn();
         }
 

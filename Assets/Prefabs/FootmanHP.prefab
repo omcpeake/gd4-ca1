@@ -521,7 +521,6 @@ GameObject:
   - component: {fileID: 7418821733462398658}
   - component: {fileID: 7418821733462398669}
   - component: {fileID: 187337152723816128}
-  - component: {fileID: 7733381295363072459}
   m_Layer: 0
   m_Name: FootmanHP
   m_TagString: Untagged
@@ -604,19 +603,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitStats: {fileID: 11400000, guid: b8759211fb3ce764b8ddb457e4fc7450, type: 2}
---- !u!135 &7733381295363072459
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7418821732724253413}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7418821732724253425
 GameObject:
   m_ObjectHideFlags: 0
