@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour
     [Space]
     public AudioClip Sword;
     public AudioClip WarHorn;
+    public AudioClip HumanDeath;
 
     void Awake()
     {
@@ -58,6 +59,12 @@ public class SoundManager : MonoBehaviour
     public void PlayWarHornEffect()
     {
         EffectsSource.clip = WarHorn;
+        EffectsSource.Play();
+    }
+
+    public void PlayHumanDeathEffect()
+    {
+        EffectsSource.clip = HumanDeath;
         EffectsSource.Play();
     }
 

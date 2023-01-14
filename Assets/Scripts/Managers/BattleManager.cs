@@ -128,6 +128,15 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(PlayerAttack());
     }
 
+    public void OnHealButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+
+        StartCoroutine(PlayerHeal());
+    }
+
+
     IEnumerator PlayerAttack()
     {
         //can only attack enemies
@@ -161,12 +170,23 @@ public class BattleManager : MonoBehaviour
                 GetNextTurn();
             }
         }
-        
-
-        
-
     }
+    IEnumerator PlayerHeal()
+    {
+        //can only heal allies
+        if (selectedUnit.GetComponent<Stats>().IsFriendly() == true)
+        {
+            selectedUnit.GetComponent<Stats>().Heal(player.GetComponent<Stats>().Attack());
+            yield return new WaitForSeconds(2f);
 
+
+            //remove from turn queue and add back onto the back
+                GameObject temp = turnOrder.Peek();
+                turnOrder.Dequeue();
+                turnOrder.Enqueue(temp);
+                GetNextTurn();
+        }
+    }
     IEnumerator EnemyTurn()
     {
         //TODO - Enemy can choose targets

@@ -51,6 +51,11 @@ public class Stats : MonoBehaviour
         }
     }
 
+    public void Heal(int healVal)
+    {
+        unitStats.currentHP += healVal;
+    }
+
 
     public void ResetHP()
     {
@@ -64,6 +69,7 @@ public class Stats : MonoBehaviour
     public void Die()
     {
         isDead = true;
+        SoundManager.instance.PlayHumanDeathEffect();
         Destroy(gameObject);
     }
 

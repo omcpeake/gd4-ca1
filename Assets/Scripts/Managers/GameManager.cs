@@ -10,8 +10,6 @@ using static UnityEditor.PlayerSettings;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
-
-
     public GameState gameState;
     public CamState camState;
     public static event Action<GameState> GameStateChanged;
@@ -74,7 +72,7 @@ public class GameManager : MonoBehaviour
         else if (gameState == GameState.LOSE)
         {           
             UIManager.instance.GameLost();
-            StartCoroutine(ReloadSceneAfterSeconds(10f));
+            StartCoroutine(ReloadSceneAfterSeconds(5f));
         }
 
     }
@@ -136,6 +134,11 @@ public class GameManager : MonoBehaviour
         {
             UpdateGameState(GameState.WIN);
         }
+    }
+
+    public int GetBossesRemaining()
+    {
+        return BossesRemaining;
     }
 
 }

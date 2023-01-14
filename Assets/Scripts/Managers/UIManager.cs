@@ -8,9 +8,12 @@ public class UIManager : MonoBehaviour
     public static UIManager instance { get; private set; }
 
     public GameObject toastCanvas;
-    public TextMeshProUGUI text;
+    public TextMeshProUGUI toastText;
     [Space]
     public GameObject objectiveCanvas;
+
+    public GameObject bossesCanvas;
+    public TextMeshProUGUI bossNumText;
     void Awake()
     {
         //creating singleton
@@ -28,6 +31,11 @@ public class UIManager : MonoBehaviour
         BlankText();
     }
 
+    private void Update()
+    {
+        bossNumText.SetText("Remaining Bosses: "+GameManager.instance.GetBossesRemaining().ToString());
+    }
+
     public void DisableObjectiveCanvas()
     {
         objectiveCanvas.SetActive(false);
@@ -35,25 +43,25 @@ public class UIManager : MonoBehaviour
 
     private void BlankText()
     {
-        text.SetText("");
+        toastText.SetText("");
     }    
     public void BattleWon()
     {
 
-        text.SetText("Battle Won");
+        toastText.SetText("Battle Won");
         StartCoroutine(ClearAfterSeconds(2f));
     }
 
     public void GameWon()
     {
-        text.SetText("You Win!");
+        toastText.SetText("You Win!");
         StartCoroutine(ClearAfterSeconds(10f));
 
     }
 
     public void GameLost()
     {
-        text.SetText("You Lose");
+        toastText.SetText("You Lose");
         StartCoroutine(ClearAfterSeconds(10f));     
     }
 
