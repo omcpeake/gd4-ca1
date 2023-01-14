@@ -7,8 +7,10 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance { get; private set; }
 
-    public GameObject canvas;
+    public GameObject toastCanvas;
     public TextMeshProUGUI text;
+    [Space]
+    public GameObject objectiveCanvas;
     void Awake()
     {
         //creating singleton
@@ -24,6 +26,11 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         BlankText();
+    }
+
+    public void DisableObjectiveCanvas()
+    {
+        objectiveCanvas.SetActive(false);
     }
 
     private void BlankText()
