@@ -17,7 +17,7 @@ MonoBehaviour:
   friendly: 0
   boss: 0
   maxHP: 5
-  currentHP: -9
+  currentHP: -6
   attack: 6
   defense: 6
   speed: 6

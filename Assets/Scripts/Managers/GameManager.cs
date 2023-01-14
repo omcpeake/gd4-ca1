@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using static UnityEditor.PlayerSettings;
 
 public class GameManager : MonoBehaviour
@@ -32,12 +33,14 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
     {
         CamManager.instance.SetMainCam();
         UpdateGameState(GameState.OVERWORLD);
+        player.GetComponent<Stats>().ResetHP();
     }
 
     private void Update()
@@ -63,11 +66,13 @@ public class GameManager : MonoBehaviour
         }
         else if (gameState == GameState.WIN)
         {
-
+            UIManager.instance.GameWon();
+            StartCoroutine(ReloadSceneAfterSeconds(10f));
         }
         else if (gameState == GameState.LOSE)
-        {
-
+        {           
+            UIManager.instance.GameLost();
+            StartCoroutine(ReloadSceneAfterSeconds(10f));
         }
 
     }
@@ -99,11 +104,13 @@ public class GameManager : MonoBehaviour
 
     public void SaveCurrentPositionRotation()
     {
+        //saves player position and rotation to be returned to later
         savedPosition = player.transform.position;
         savedRotation = player.transform.rotation;
     }
     public void ReturnToSavedPosition()
     {
+        //returns player to location saved from method above
         player.GetComponent<NavMeshAgent>().Warp(savedPosition);
         player.transform.rotation = savedRotation;
     }
@@ -111,6 +118,13 @@ public class GameManager : MonoBehaviour
     {
         player.GetComponent<NavMeshAgent>().Warp(pos);
         player.transform.rotation = rot;
+    }
+
+    IEnumerator ReloadSceneAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        player.GetComponent<Stats>().ResetHP();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }

@@ -21,6 +21,7 @@ public class SpawnManager : MonoBehaviour
             instance = this;
 
         }
+        DontDestroyOnLoad(gameObject);
     }
 
     public GameObject SpawnHuman(Vector3 pos, Quaternion rot)

@@ -23,6 +23,7 @@ public class CamManager : MonoBehaviour
         {
             instance = this;
         }
+        DontDestroyOnLoad(gameObject);
     }
 
     public void SetMainCam()

@@ -26,6 +26,8 @@ public class SoundManager : MonoBehaviour
         {
             instance = this;
         }
+        DontDestroyOnLoad(gameObject);
+
         MusicSource.clip = OverworldMusic;
         MusicSource.Play();
     }

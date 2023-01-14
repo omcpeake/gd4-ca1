@@ -25,9 +25,6 @@ public class BattleManager : MonoBehaviour
 
     private GameObject selectedUnit;
 
-    
-    
-    
 
     BattleState state;
 
@@ -104,31 +101,39 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
-        //damage
-        bool isDead = selectedUnit.GetComponent<Stats>().Defend(turnOrder.Peek().GetComponent<Stats>().Attack());
-        yield return new WaitForSeconds(2f);
+        //can only attack enemies
+        if(selectedUnit.GetComponent<Stats>().IsFriendly()==false)
+        {
+            //damage
+            bool isDead = selectedUnit.GetComponent<Stats>().Defend(turnOrder.Peek().GetComponent<Stats>().Attack());
+            yield return new WaitForSeconds(2f);
 
-        //check if dead
-        if(isDead==true)
-        {
-            selectedUnit.GetComponent<Stats>().Die();
-            enemyUnitCount--;
-        }
 
-        //change state
-        if(enemyUnitCount==0)
-        {
-            state = BattleState.WON;
-            EndBattle();
+            //check if dead
+            if (isDead == true)
+            {
+                selectedUnit.GetComponent<Stats>().Die();
+                enemyUnitCount--;
+            }
+
+            //change state
+            if (enemyUnitCount == 0)
+            {
+                state = BattleState.WON;
+                EndBattle();
+            }
+            else
+            {
+                //remove from turn queue and add back onto the back
+                GameObject temp = turnOrder.Peek();
+                turnOrder.Dequeue();
+                turnOrder.Enqueue(temp);
+                GetNextTurn();
+            }
         }
-        else
-        {
-            //remove from turn queue and add back onto the back
-            GameObject temp = turnOrder.Peek();
-            turnOrder.Dequeue();
-            turnOrder.Enqueue(temp);
-            GetNextTurn();
-        }
+        
+
+        
 
     }
 
@@ -223,8 +228,10 @@ public class BattleManager : MonoBehaviour
     {
         turnOrder.Clear();
         battleUI.SetActive(false);
-        if(state==BattleState.WON)
+        SoundManager.instance.SwitchMusic();
+        if (state==BattleState.WON)
         {
+            UIManager.instance.BattleWon();
             GameManager.instance.UpdateGameState(GameState.OVERWORLD);
             GameManager.instance.ReturnToSavedPosition();
         }

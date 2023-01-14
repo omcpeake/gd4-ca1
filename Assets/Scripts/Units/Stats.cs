@@ -43,7 +43,10 @@ public class Stats : MonoBehaviour
     }
 
 
-
+    public void ResetHP()
+    {
+        unitStats.currentHP = unitStats.maxHP;
+    }
 
     public bool GetIsDead()
     {

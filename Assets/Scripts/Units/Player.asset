@@ -15,6 +15,7 @@ MonoBehaviour:
   unitName: Player
   unitLevel: 1
   friendly: 1
+  boss: 0
   maxHP: 20
   currentHP: 20
   attack: 7

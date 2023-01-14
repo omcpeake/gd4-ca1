@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1208539801969095630, guid: 2dba34af34cfea146aaf204561d44947, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -17.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1208539801969095630, guid: 2dba34af34cfea146aaf204561d44947, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.9
+      objectReference: {fileID: 0}
     - target: {fileID: 2417612111518599268, guid: 2dba34af34cfea146aaf204561d44947, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -55,6 +63,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Big Tree Cluster
       objectReference: {fileID: 0}
+    - target: {fileID: 6400106925118058189, guid: 2dba34af34cfea146aaf204561d44947, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 30.8
+      objectReference: {fileID: 0}
     - target: {fileID: 7400930273501167154, guid: 2dba34af34cfea146aaf204561d44947, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5
@@ -65,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7400930273816871558, guid: 2dba34af34cfea146aaf204561d44947, type: 3}
       propertyPath: m_Name
-      value: Big Tree Cluster (11)
+      value: Narrow Cluster
       objectReference: {fileID: 0}
     - target: {fileID: 7400930273816871558, guid: 2dba34af34cfea146aaf204561d44947, type: 3}
       propertyPath: m_StaticEditorFlags
