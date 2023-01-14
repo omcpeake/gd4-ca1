@@ -13,7 +13,8 @@ public class SoundManager : MonoBehaviour
     public AudioClip OverworldMusic;
     public AudioClip CombatMusic;
     [Space]
-    public AudioClip test;
+    public AudioClip Sword;
+    public AudioClip WarHorn;
 
     void Awake()
     {
@@ -46,6 +47,18 @@ public class SoundManager : MonoBehaviour
             MusicSource.Play();
         }
             
+    }
+
+    public void PlaySwordEffect()
+    {
+        EffectsSource.clip = Sword;
+        EffectsSource.Play();
+    }
+
+    public void PlayWarHornEffect()
+    {
+        EffectsSource.clip = WarHorn;
+        EffectsSource.Play();
     }
 
 

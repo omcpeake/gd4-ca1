@@ -135,6 +135,7 @@ public class BattleManager : MonoBehaviour
         {
             //damage
             bool isDead = selectedUnit.GetComponent<Stats>().Defend(turnOrder.Peek().GetComponent<Stats>().Attack());
+            SoundManager.instance.PlaySwordEffect();
             yield return new WaitForSeconds(2f);
 
 
@@ -172,6 +173,7 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         //damage
         bool isDead = player.GetComponent<Stats>().Defend(turnOrder.Peek().GetComponent<Stats>().Attack());
+        SoundManager.instance.PlaySwordEffect();
         yield return new WaitForSeconds(2f);
 
         //check if dead
@@ -272,7 +274,7 @@ public class BattleManager : MonoBehaviour
                 GameManager.instance.UpdateGameState(GameState.OVERWORLD);
                 GameManager.instance.ReturnToSavedPosition();
             }
-            
+            SoundManager.instance.PlayWarHornEffect();
         }
         else if(state==BattleState.LOST)
         {
