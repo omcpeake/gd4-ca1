@@ -655,8 +655,8 @@ GameObject:
   - component: {fileID: 4463868907105534}
   - component: {fileID: 95538263452871118}
   - component: {fileID: 8054677711406145586}
-  - component: {fileID: 3423829366551349705}
   - component: {fileID: 6635201085362027707}
+  - component: {fileID: 3423829366551349705}
   m_Layer: 0
   m_Name: PolyArtWizardStandardMat
   m_TagString: Untagged
@@ -714,6 +714,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2.2028015, z: 1}
   m_Center: {x: 0, y: 1.0459663, z: 0}
+--- !u!114 &6635201085362027707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248815240492774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97db9c96d987929449aa7ed68c959bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3423829366551349705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -727,18 +739,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitStats: {fileID: 11400000, guid: 009f0cacd0b3e274f934dbf152c50e0e, type: 2}
---- !u!114 &6635201085362027707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248815240492774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97db9c96d987929449aa7ed68c959bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1251583507443948
 GameObject:
   m_ObjectHideFlags: 0

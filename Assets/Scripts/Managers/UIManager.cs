@@ -41,15 +41,13 @@ public class UIManager : MonoBehaviour
     {
         text.SetText("You Win!");
         StartCoroutine(ClearAfterSeconds(10f));
-        BlankText();
 
     }
 
     public void GameLost()
     {
         text.SetText("You Lose");
-        StartCoroutine(ClearAfterSeconds(10f));
-        BlankText();
+        StartCoroutine(ClearAfterSeconds(10f));     
     }
 
     private IEnumerator ClearAfterSeconds(float seconds)

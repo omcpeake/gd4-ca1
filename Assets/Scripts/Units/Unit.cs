@@ -9,6 +9,7 @@ public class Unit : ScriptableObject
 {
     public string unitName;
     public int unitLevel;
+    public int unitID;
 
     public bool friendly;
     public bool boss;

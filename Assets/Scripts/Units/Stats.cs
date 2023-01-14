@@ -22,16 +22,25 @@ public class Stats : MonoBehaviour
         return unitStats.speed;
     }
 
+    public int GetID()
+    {
+        return unitStats.unitID;
+    }
+
     public int Attack()
     {
         return unitStats.attack;
+    }
+
+    public bool IsBoss()
+    {
+        return unitStats.boss;
     }
     //damage formula = attack*(100/(100+defense))
     public bool Defend(int attackVal)
     {
         //currentHP -= attackVal*(100/(100+unitStats.defense));
         unitStats.currentHP -= attackVal;
-        Debug.Log(unitStats.currentHP);
         if(unitStats.currentHP <= 0)
         {
             return true;

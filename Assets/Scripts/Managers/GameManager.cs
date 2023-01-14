@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     Vector3 savedPosition;
     Quaternion savedRotation;
 
+    int BossesRemaining;
 
     void Awake()
     {
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
         CamManager.instance.SetMainCam();
         UpdateGameState(GameState.OVERWORLD);
         player.GetComponent<Stats>().ResetHP();
+        BossesRemaining = 3;
     }
 
     private void Update()
@@ -125,6 +127,15 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         player.GetComponent<Stats>().ResetHP();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void BossSlain()
+    {
+        BossesRemaining--;
+        if(BossesRemaining == 0)
+        {
+            UpdateGameState(GameState.WIN);
+        }
     }
 
 }

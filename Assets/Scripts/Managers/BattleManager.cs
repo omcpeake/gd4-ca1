@@ -22,17 +22,17 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private GameObject battleUI;
 
-
     private GameObject selectedUnit;
-
-
     BattleState state;
-
     Queue<GameObject> turnOrder = new Queue<GameObject>();
     int turnCount;
 
     int allyUnitCount;
     int enemyUnitCount;
+
+    int unitID;
+
+    bool BossBattle;
 
     void Awake()
     {
@@ -49,9 +49,15 @@ public class BattleManager : MonoBehaviour
         battleUI.SetActive(false);
     }
 
+    public void GetUnitID(int id)
+    {
+        unitID = id;
+    }
 
     public void StartBattle()
     {
+        //reset enemy
+        enemy1 = null;
         state = BattleState.START;
         //create list of units, will be sorted by speed in placed into a queue later
         List<GameObject> unitList = new List<GameObject>();
@@ -62,7 +68,28 @@ public class BattleManager : MonoBehaviour
         unitList.Add(player);
 
         //spawn enemies
-        enemy1 = SpawnManager.instance.SpawnHuman(enemySlot1.transform.position, enemySlot1.transform.rotation);
+        if(unitID == 2)
+        {
+            enemy1 = SpawnManager.instance.SpawnHuman(enemySlot1.transform.position, enemySlot1.transform.rotation);
+        }
+        else if (unitID == 3)
+        {
+            enemy1 = SpawnManager.instance.SpawnWizard(enemySlot1.transform.position, enemySlot1.transform.rotation);
+        }
+        else if (unitID == 4)
+        {
+            enemy1 = SpawnManager.instance.SpawnHero(enemySlot1.transform.position, enemySlot1.transform.rotation);
+        }
+
+        if(enemy1.GetComponent<Stats>().IsBoss()==true)
+        {
+            BossBattle = true;
+        }
+        else
+        {
+            BossBattle = false;
+        }
+
 
         unitList.Add(enemy1);
         enemyUnitCount++;
@@ -73,6 +100,8 @@ public class BattleManager : MonoBehaviour
         SoundManager.instance.SwitchMusic();
         GetNextTurn();
     }
+
+
 
     private void GetNextTurn()
     {
@@ -231,9 +260,19 @@ public class BattleManager : MonoBehaviour
         SoundManager.instance.SwitchMusic();
         if (state==BattleState.WON)
         {
-            UIManager.instance.BattleWon();
-            GameManager.instance.UpdateGameState(GameState.OVERWORLD);
-            GameManager.instance.ReturnToSavedPosition();
+            if (BossBattle==true)
+            {
+                GameManager.instance.BossSlain();
+
+            }
+            if(GameManager.instance.gameState!=GameState.WIN)
+            {
+                UIManager.instance.BattleWon();
+
+                GameManager.instance.UpdateGameState(GameState.OVERWORLD);
+                GameManager.instance.ReturnToSavedPosition();
+            }
+            
         }
         else if(state==BattleState.LOST)
         {

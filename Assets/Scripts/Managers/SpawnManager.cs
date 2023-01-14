@@ -8,6 +8,7 @@ public class SpawnManager : MonoBehaviour
 
     public GameObject human;
     public GameObject wizard;
+    public GameObject hero;
 
     void Awake()
     {
@@ -28,6 +29,8 @@ public class SpawnManager : MonoBehaviour
     {
         // Instantiate at position and rotation.
         GameObject newGO = Instantiate(human, pos, rot);
+        //spawn enemy at full health
+        newGO.GetComponent<Stats>().ResetHP();       
         return newGO;
     }
 
@@ -35,6 +38,17 @@ public class SpawnManager : MonoBehaviour
     {
         // Instantiate at position and rotation.
         GameObject newGO = Instantiate(wizard, pos, rot);
+        //spawn enemy at full health
+        newGO.GetComponent<Stats>().ResetHP();
+        return newGO;
+    }
+
+    public GameObject SpawnHero(Vector3 pos, Quaternion rot)
+    {
+        // Instantiate at position and rotation.
+        GameObject newGO = Instantiate(hero, pos, rot);
+        //spawn enemy at full health
+        newGO.GetComponent<Stats>().ResetHP();
         return newGO;
     }
 }
