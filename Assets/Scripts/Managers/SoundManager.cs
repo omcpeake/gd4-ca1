@@ -30,10 +30,14 @@ public class SoundManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
+        
+    }
+
+    public void StartMusic()
+    {
         MusicSource.clip = OverworldMusic;
         MusicSource.Play();
     }
-
 
     public void SwitchMusic()
     {

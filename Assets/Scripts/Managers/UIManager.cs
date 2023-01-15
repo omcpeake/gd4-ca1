@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject bossesCanvas;
     public TextMeshProUGUI bossNumText;
+
+    public GameObject menuCanvas;
     void Awake()
     {
         //creating singleton
@@ -36,6 +38,25 @@ public class UIManager : MonoBehaviour
         bossNumText.SetText("Remaining Bosses: "+GameManager.instance.GetBossesRemaining().ToString());
     }
 
+
+    public void StartGame()
+    {
+        GameManager.instance.UpdateGameState(GameState.OVERWORLD);
+        menuCanvas.SetActive(false);
+        SoundManager.instance.StartMusic();
+        EnableObjectiveCanvas();
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
+
+    public void EnableObjectiveCanvas()
+    {
+        objectiveCanvas.SetActive(true);
+    }
     public void DisableObjectiveCanvas()
     {
         objectiveCanvas.SetActive(false);

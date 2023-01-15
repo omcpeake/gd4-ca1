@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         CamManager.instance.SetMainCam();
-        UpdateGameState(GameState.OVERWORLD);
         player.GetComponent<Stats>().ResetHP();
         BossesRemaining = 3;
     }
@@ -76,6 +75,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
 
     //https://www.youtube.com/watch?v=4I0vonyqMi8&ab_channel=Tarodev Game state tutorial
     public void UpdateGameState(GameState newState)
